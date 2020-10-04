@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  memcached:
+    image: memcached:latest
+  replayd:
+    image: replayd
+    init: true
+    build: .
+    depends_on:
+      - "memcached"
+    command: ["/usr/bin/wait-for-it", "memcached:11211", "-t", "20", "-s", "--", "/usr/local/bin/uwsgi", "--ini", "/etc/replayd/wsgi.ini"]
+    ports:
+      - "127.0.0.1:8000:8000"
