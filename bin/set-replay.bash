@@ -1,2 +1,2 @@
 #!/bin/bash
-curl -XPOST "http://$1/" -d "$2"
+curl -XPUT "http://$1/" -d "$2"
